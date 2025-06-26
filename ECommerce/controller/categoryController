@@ -1,0 +1,23 @@
+package in.sp.main.controller;
+import in.sp.main.model.*;
+import in.sp.main.service.CategoryService;
+
+import java.util.*;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/categories")
+@CrossOrigin(origins="http://localhost:5173")
+public class CategoryController {
+	
+	private final CategoryService categoryService;
+	
+	public CategoryController(CategoryService categoryService) {
+		this.categoryService=categoryService;
+	}
+	
+	@GetMapping
+	public List<Category> getAllCategories(){
+		return categoryService.getAllCategories();
+	}
+}
