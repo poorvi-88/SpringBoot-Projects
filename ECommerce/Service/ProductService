@@ -1,0 +1,33 @@
+package in.sp.main.service;
+
+import org.springframework.stereotype.Service;
+import in.sp.main.model.Product;
+import in.sp.main.repositories.ProductRepository;
+
+import java.util.*;
+
+@Service
+public class ProductService {
+	private final ProductRepository productRepository;
+	
+	public ProductService(ProductRepository productRepository) {
+		this.productRepository=productRepository;
+	}
+	
+//	public List<Product> getAllProducts(){
+//		return productRepository.findAll();
+//	}
+	
+	public List<Product> getAllProducts(){
+	    try {
+	        return productRepository.findAll();
+	    } catch (Exception e) {
+	        e.printStackTrace(); // This will show exact error in console
+	        throw e;
+	    }
+	}
+	
+	public List<Product> getProductByCategory(Long categoryId){
+		return productRepository.findByCategoryId(categoryId);
+	}
+}
