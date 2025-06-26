@@ -1,0 +1,44 @@
+package in.sp.main.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import in.sp.main.model.Product;
+import in.sp.main.service.ProductService;
+
+@RestController
+@RequestMapping("/api/products")
+@CrossOrigin(origins="http://localhost:5173")
+public class ProductController {
+	
+	private final ProductService productService;
+	
+	public ProductController(ProductService productService) {
+		this.productService=productService;
+	}
+	
+//	@GetMapping
+//	public List<Product> getAllProducts(){
+//		return productService.getAllProducts();
+//	}
+	
+	@GetMapping
+	public List<Product> getAllProducts(){
+	    try {
+	        return productService.getAllProducts();
+	    } catch (Exception e) {
+	        e.printStackTrace(); // for debugging
+	        throw e; // optional rethrow
+	    }
+	}
+	
+	@GetMapping("/category/{categoryId}")
+	public List<Product> getAllProductsByCategory(@PathVariable Long categoryId){
+		return productService.getProductByCategory(categoryId);
+	}
+}
